@@ -1,0 +1,600 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Dr. Ali Fares | AI & Infrastructure Condition Assessment Researcher | PolyU</title>
+    <meta name="description" content="Personal academic research website of Dr. Ali Fares, Postdoctoral Researcher at The Hong Kong Polytechnic University. Specializing in AI, GPR, deep learning, MLLMs, sustainable materials, acoustic leak detection, and infrastructure asset management.">
+    <meta name="keywords" content="Ali Fares, PolyU, Civil Engineering, AI, Infrastructure Assessment, Ground Penetrating Radar, APPA, Deep Learning, MLLM, GPR, Sustainability, Construction Management">
+    <meta name="author" content="Dr. Ali Fares">
+
+    <!-- Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&family=JetBrains+Mono:wght@400;500;600&display=swap" rel="stylesheet">
+    
+    <!-- Lucide Icons -->
+    <script src="https://unpkg.com/lucide@latest"></script>
+
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+    <!-- Background Canvas for Interactive Visualizer -->
+    <canvas id="bgCanvas"></canvas>
+
+    <!-- Navigation Header -->
+    <header class="navbar" id="navbar">
+        <div class="nav-container">
+            <a href="#hero" class="nav-brand">
+                <span class="brand-text">Ali Fares<span class="brand-dot">.ai</span></span>
+            </a>
+            <nav class="nav-links">
+                <a href="#about" class="nav-link">About</a>
+                <a href="#research" class="nav-link">What I Work On</a>
+                <a href="#software" class="nav-link nav-highlight">APPA Console</a>
+                <a href="#publications" class="nav-link">Publications</a>
+                <a href="#teaching" class="nav-link">Teaching & Impact</a>
+                <a href="#contact" class="btn-primary nav-btn">Contact</a>
+            </nav>
+            <button class="mobile-menu-btn" id="mobileMenuBtn" aria-label="Toggle Navigation">
+                <i data-lucide="menu"></i>
+            </button>
+        </div>
+    </header>
+
+    <main>
+        <!-- Hero Section -->
+        <section id="hero" class="hero-section">
+            <div class="hero-container">
+                <div class="hero-content">
+                    <div class="badge-group">
+                        <span class="badge badge-accent"><i data-lucide="award"></i> HKPFS Fellow</span>
+                        <span class="badge"><i data-lucide="graduation-cap"></i> PolyU PhD (2026)</span>
+                        <span class="badge"><i data-lucide="globe"></i> McGill Visiting Researcher</span>
+                    </div>
+
+                    <h1 class="hero-title">
+                        Making Infrastructure Condition Assessment <span class="gradient-text">Measurable, Auditable & AI-Driven</span>
+                    </h1>
+
+                    <p class="hero-subtitle">
+                        I build systems that transform subjective civil engineering inspections into auditable numbers. Combining deep learning, multi-sensor data fusion—Ground-Penetrating Radar, acoustics, UAV imagery, IoT telemetry—and LLM decision-support platforms into production-grade software engineers can run.
+                    </p>
+
+                    <div class="hero-actions">
+                        <a href="#software" class="btn-primary"><i data-lucide="terminal"></i> Explore APPA Platform</a>
+                        <a href="#publications" class="btn-secondary"><i data-lucide="book-open"></i> View 48 Publications</a>
+                        <a href="mailto:ali-i.fares@connect.polyu.hk" class="btn-outline"><i data-lucide="mail"></i> Contact Me</a>
+                    </div>
+
+                    <!-- Quick Metrics Bar -->
+                    <div class="metrics-grid">
+                        <div class="metric-card">
+                            <div class="metric-value" data-target="48">0</div>
+                            <div class="metric-label">Peer-Reviewed Papers</div>
+                        </div>
+                        <div class="metric-card">
+                            <div class="metric-value" data-target="35">0</div>
+                            <div class="metric-label">Journal Articles</div>
+                        </div>
+                        <div class="metric-card">
+                            <div class="metric-value" data-target="21">0</div>
+                            <div class="metric-label">Q1 Top Journals</div>
+                        </div>
+                        <div class="metric-card">
+                            <div class="metric-value" data-target="900">0</div>
+                            <div class="metric-label">+ Citations</div>
+                        </div>
+                        <div class="metric-card">
+                            <div class="metric-value" data-target="17">0</div>
+                            <div class="metric-label">h-index</div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- About Section -->
+        <section id="about" class="section">
+            <div class="section-container">
+                <div class="section-header">
+                    <span class="section-tag">About Me</span>
+                    <h2 class="section-title">Researcher & System Architect for Civil Assets</h2>
+                </div>
+                <div class="about-grid">
+                    <div class="about-card glass-card">
+                        <div class="about-icon"><i data-lucide="user-check"></i></div>
+                        <h3>Current Appointment</h3>
+                        <p class="about-affiliation"><strong>Postdoctoral Fellow</strong></p>
+                        <p>Department of Civil and Environmental Engineering</p>
+                        <p class="text-muted">The Hong Kong Polytechnic University (PolyU)</p>
+                    </div>
+                    <div class="about-card glass-card">
+                        <div class="about-icon"><i data-lucide="award"></i></div>
+                        <h3>Doctoral Distinction</h3>
+                        <p><strong>PhD in Civil Engineering (2026)</strong></p>
+                        <p>Awarded under the prestigious <em>Hong Kong PhD Fellowship Scheme (HKPFS)</em>.</p>
+                        <p class="text-muted">Dissertation: Integrated Pavement Performance Assessment System Using Multi-Sensing Technologies.</p>
+                    </div>
+                    <div class="about-card glass-card">
+                        <div class="about-icon"><i data-lucide="building"></i></div>
+                        <h3>Global Academic Mobility</h3>
+                        <p><strong>Postgraduate Visiting Researcher</strong></p>
+                        <p>Department of Civil Engineering & Applied Mechanics, <em>McGill University, Canada</em>.</p>
+                        <p class="text-muted">Winter road surface condition modeling, remote sensing analytics, and Multimodal LLM integration for climate resilience.</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- What I Work On Section -->
+        <section id="research" class="section bg-alt">
+            <div class="section-container">
+                <div class="section-header">
+                    <span class="section-tag">Research Spectrum</span>
+                    <h2 class="section-title">What I Work On</h2>
+                    <p class="section-desc">Bridging computer vision, non-destructive sensing, LLM synthetic experts, sustainable materials, and mathematical optimization for built environment infrastructure.</p>
+                </div>
+
+                <div class="research-grid">
+                    <!-- Pillar 1 -->
+                    <div class="research-card glass-card">
+                        <div class="card-icon-box"><i data-lucide="scan-line"></i></div>
+                        <h3>Automated Condition Assessment</h3>
+                        <p>Segmentation and detection models for cracks, rutting, and surface distress (SegFormer, FPN, YOLOv8, SAM 3). Every prediction is strictly validated against measured ground truth rather than eyeballed visual estimates.</p>
+                        <div class="tech-tags">
+                            <span class="tech-tag">PyTorch</span>
+                            <span class="tech-tag">SegFormer</span>
+                            <span class="tech-tag">SAM 3</span>
+                            <span class="tech-tag">YOLOv8</span>
+                            <span class="tech-tag">Diffusion AI500</span>
+                        </div>
+                    </div>
+
+                    <!-- Pillar 2 -->
+                    <div class="research-card glass-card">
+                        <div class="card-icon-box"><i data-lucide="waves"></i></div>
+                        <h3>Subsurface & Non-Destructive Sensing</h3>
+                        <p>High-frequency Ground-Penetrating Radar (GPR) signal processing, layer interfacing, pavement thickness evaluation, bridge-deck rebar recognition, cover depth measurement, and early-stage corrosion assessment.</p>
+                        <div class="tech-tags">
+                            <span class="tech-tag">GPR Signal Analytics</span>
+                            <span class="tech-tag">B-Scan Interfacing</span>
+                            <span class="tech-tag">Cover Depth</span>
+                            <span class="tech-tag">Rebar Corrosion</span>
+                        </div>
+                    </div>
+
+                    <!-- Pillar 3 -->
+                    <div class="research-card glass-card">
+                        <div class="card-icon-box"><i data-lucide="activity"></i></div>
+                        <h3>Acoustic Leak Detection</h3>
+                        <p>AIoT data pipelines and machine learning algorithms operating on hydrophone and noise-logger telemetry to detect, classify, and pinpoint leaks in live urban water distribution networks under operational noise.</p>
+                        <div class="tech-tags">
+                            <span class="tech-tag">Hydrophones</span>
+                            <span class="tech-tag">AIoT Telemetry</span>
+                            <span class="tech-tag">Acoustic Signal Processing</span>
+                            <span class="tech-tag">Water Networks</span>
+                        </div>
+                    </div>
+
+                    <!-- Pillar 4 -->
+                    <div class="research-card glass-card">
+                        <div class="card-icon-box"><i data-lucide="bot"></i></div>
+                        <h3>Decision Support & LLMs</h3>
+                        <p>Zero-shot Multimodal Large Language Models (MLLMs) acting as synthetic experts for visual distress evaluation, fuzzy AHP, deductive indices, and LLM-assisted maintenance prioritization platforms.</p>
+                        <div class="tech-tags">
+                            <span class="tech-tag">Multimodal LLMs</span>
+                            <span class="tech-tag">Synthetic Experts</span>
+                            <span class="tech-tag">Fuzzy AHP</span>
+                            <span class="tech-tag">Prompt Engineering</span>
+                        </div>
+                    </div>
+
+                    <!-- Pillar 5 (NEW: Sustainable Materials & Byproduct Utilization) -->
+                    <div class="research-card glass-card">
+                        <div class="card-icon-box"><i data-lucide="leaf"></i></div>
+                        <h3>Sustainable Materials & Byproduct Utilization</h3>
+                        <p>Life Cycle Assessment (LCA) and experimental characterization of industrial byproducts—ferrochrome slag, fly ash, olive cake ash, and zeolite—for eco-friendly concrete, high-temperature resilience, and green soil stabilization.</p>
+                        <div class="tech-tags">
+                            <span class="tech-tag">Ferrochrome Slag</span>
+                            <span class="tech-tag">Fly Ash & Zeolite</span>
+                            <span class="tech-tag">Life Cycle Assessment (LCA)</span>
+                            <span class="tech-tag">Green Concrete</span>
+                        </div>
+                    </div>
+
+                    <!-- Pillar 6 (NEW: Infrastructure Economics & Construction Project Analytics) -->
+                    <div class="research-card glass-card">
+                        <div class="card-icon-box"><i data-lucide="trending-up"></i></div>
+                        <h3>Infrastructure Economics & Construction Project Analytics</h3>
+                        <p>Game-theoretic Nash equilibria for contractor-subcontractor win-win payment term negotiations, portfolio cash flow optimization, risk sharing, and multi-objective project scheduling under budget constraints.</p>
+                        <div class="tech-tags">
+                            <span class="tech-tag">Game Theory</span>
+                            <span class="tech-tag">Cash Flow Optimization</span>
+                            <span class="tech-tag">Portfolio Scheduling</span>
+                            <span class="tech-tag">JCEM (ASCE)</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- APPA Software Platform Demo Console Section -->
+        <section id="software" class="section">
+            <div class="section-container">
+                <div class="section-header">
+                    <span class="section-tag">Featured Software Platform</span>
+                    <h2 class="section-title">APPA — Automated Pavement Performance Assessment</h2>
+                    <p class="section-desc">Research platform · Ten analysis tools · One unified console connecting multi-sensor raw data to auditable condition ratings.</p>
+                </div>
+
+                <!-- Interactive Software Console Simulation -->
+                <div class="console-wrapper glass-card">
+                    <div class="console-header">
+                        <div class="console-dots">
+                            <span class="dot red"></span>
+                            <span class="dot yellow"></span>
+                            <span class="dot green"></span>
+                        </div>
+                        <div class="console-title"><i data-lucide="terminal"></i> APPA Console v3.4 [Research Edition]</div>
+                        <div class="console-status"><span class="pulse-indicator"></span> Interactive Sandbox Live</div>
+                    </div>
+
+                    <div class="console-body">
+                        <!-- Sidebar Navigation for Tools -->
+                        <div class="console-sidebar">
+                            <button class="console-tab-btn active" data-tool="crack">
+                                <i data-lucide="eye"></i> 1. Surface Crack Segmentation
+                            </button>
+                            <button class="console-tab-btn" data-tool="gpr">
+                                <i data-lucide="layers"></i> 2. GPR Subsurface Interfacing
+                            </button>
+                            <button class="console-tab-btn" data-tool="rutting">
+                                <i data-lucide="bar-chart-3"></i> 3. 3D Rut Depth Analytics
+                            </button>
+                            <button class="console-tab-btn" data-tool="llm">
+                                <i data-lucide="bot"></i> 4. LLM Synthetic Expert Rating
+                            </button>
+                            <button class="console-tab-btn" data-tool="fuzzy">
+                                <i data-lucide="calculator"></i> 5. Fuzzy AHP & PCI Calculator
+                            </button>
+                        </div>
+
+                        <!-- Tool Content Area -->
+                        <div class="console-content">
+                            <!-- Tool 1: Surface Crack Segmentation -->
+                            <div class="tool-panel active" id="tool-crack">
+                                <div class="tool-header-flex">
+                                    <h4>Surface Distress Segmentation (SegFormer / SAM 3)</h4>
+                                    <button class="btn-sm btn-outline" id="toggleMaskBtn"><i data-lucide="sliders"></i> Toggle AI Segmentation Mask</button>
+                                </div>
+                                <div class="vision-demo-box">
+                                    <div class="image-stage">
+                                        <svg class="crack-svg-overlay" id="crackOverlay" viewBox="0 0 600 300">
+                                            <path d="M 50 40 Q 120 90 180 120 T 310 180 T 450 220 T 560 260" stroke="#00ffaa" stroke-width="4" fill="none" class="crack-line"></path>
+                                            <path d="M 180 120 Q 230 80 290 70" stroke="#00e5ff" stroke-width="3" fill="none" class="crack-line"></path>
+                                            <path d="M 310 180 Q 360 240 410 270" stroke="#00ffaa" stroke-width="3" fill="none" class="crack-line"></path>
+                                        </svg>
+                                        <div class="vision-info-overlay">
+                                            <span class="tag-status">Model: SegFormer-B5 + SAM 3</span>
+                                            <span class="tag-status">Crack Length: 4.82 m</span>
+                                            <span class="tag-status">Mean Width: 3.4 mm</span>
+                                            <span class="tag-status accuracy">Ground Truth IoU: 94.2%</span>
+                                        </div>
+                                    </div>
+                                </div>
+                                <p class="tool-caption"><i data-lucide="info"></i> Click "Toggle AI Segmentation Mask" to switch between raw road pavement imagery and pixel-level deep learning crack masks.</p>
+                            </div>
+
+                            <!-- Tool 2: GPR Subsurface Interfacing -->
+                            <div class="tool-panel" id="tool-gpr">
+                                <div class="tool-header-flex">
+                                    <h4>Ground-Penetrating Radar (GPR) Subsurface Layering</h4>
+                                    <span class="badge">Frequency: 1.5 GHz Horn Antenna</span>
+                                </div>
+                                <div class="gpr-canvas-container">
+                                    <canvas id="gprCanvas" width="600" height="250"></canvas>
+                                </div>
+                                <div class="gpr-metrics-grid">
+                                    <div class="gpr-metric">
+                                        <span class="label">Asphalt Surface Thickness:</span>
+                                        <span class="value">115.4 mm (±1.2 mm)</span>
+                                    </div>
+                                    <div class="gpr-metric">
+                                        <span class="label">Granular Base Course:</span>
+                                        <span class="value">240.8 mm</span>
+                                    </div>
+                                    <div class="gpr-metric">
+                                        <span class="label">Dielectric Permittivity (εr):</span>
+                                        <span class="value">6.12</span>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <!-- Tool 3: 3D Rut Depth Analytics -->
+                            <div class="tool-panel" id="tool-rutting">
+                                <div class="tool-header-flex">
+                                    <h4>3D Line Laser Scanning & Rutting Profile</h4>
+                                    <span class="badge">Accuracy: ASTM E1703 Standard</span>
+                                </div>
+                                <div class="rutting-canvas-container">
+                                    <canvas id="ruttingCanvas" width="600" height="220"></canvas>
+                                </div>
+                                <div class="gpr-metrics-grid">
+                                    <div class="gpr-metric">
+                                        <span class="label">Left Wheel Path Rut Depth:</span>
+                                        <span class="value">14.2 mm (Moderate)</span>
+                                    </div>
+                                    <div class="gpr-metric">
+                                        <span class="label">Right Wheel Path Rut Depth:</span>
+                                        <span class="value">8.7 mm (Minor)</span>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <!-- Tool 4: LLM Synthetic Expert Rating -->
+                            <div class="tool-panel" id="tool-llm">
+                                <div class="tool-header-flex">
+                                    <h4>Zero-Shot MLLM Synthetic Expert Assessment</h4>
+                                    <span class="badge badge-accent">Results in Engineering (2026)</span>
+                                </div>
+                                <div class="llm-chat-box">
+                                    <div class="chat-msg user">
+                                        <span class="chat-role">System Query:</span> Evaluate distress imagery #HK-PV-8802 and determine condition rating index.
+                                    </div>
+                                    <div class="chat-msg bot">
+                                        <span class="chat-role">Synthetic Expert (Multimodal LLM):</span>
+                                        <p><strong>Visual Analysis:</strong> High-density fatigue (alligator) cracking detected across 18.4% of wheel path area. GPR dielectric anomaly indicates sub-base moisture intrusion at depth 120mm.</p>
+                                        <p><strong>Recommended Deduction:</strong> 38.5 points.</p>
+                                        <p><strong>Condition Rating:</strong> Poor (PCI = 61.5 / 100).</p>
+                                        <p class="chat-meta">Verified against 5-expert consensus panel (Mean absolute error: 1.8%).</p>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <!-- Tool 5: Fuzzy AHP & PCI Calculator -->
+                            <div class="tool-panel" id="tool-fuzzy">
+                                <div class="tool-header-flex">
+                                    <h4>Interactive Fuzzy AHP & Deductive Index Simulator</h4>
+                                    <span class="badge">Auditable Calculation</span>
+                                </div>
+                                <div class="calculator-controls">
+                                    <div class="slider-group">
+                                        <label for="crackSlider">Surface Cracking Severity (0 - 100): <span id="crackVal">35</span></label>
+                                        <input type="range" id="crackSlider" min="0" max="100" value="35">
+                                    </div>
+                                    <div class="slider-group">
+                                        <label for="rutSlider">Rutting Depth Severity (0 - 100): <span id="rutVal">20</span></label>
+                                        <input type="range" id="rutSlider" min="0" max="100" value="20">
+                                    </div>
+                                    <div class="slider-group">
+                                        <label for="gprSlider">Subsurface Moisture/Moisture Intrusion (0 - 100): <span id="gprVal">45</span></label>
+                                        <input type="range" id="gprSlider" min="0" max="100" value="45">
+                                    </div>
+                                </div>
+                                <div class="calc-results-box">
+                                    <div class="result-item">
+                                        <span class="res-label">Deductive PCI:</span>
+                                        <span class="res-val" id="pciVal">68.5 / 100</span>
+                                    </div>
+                                    <div class="result-item">
+                                        <span class="res-label">Fuzzy AHP Health Index:</span>
+                                        <span class="res-val highlight" id="fuzzyVal">Good (0.712 Membership)</span>
+                                    </div>
+                                    <div class="result-item">
+                                        <span class="res-label">Action Required:</span>
+                                        <span class="res-val action" id="actionVal">Preventive Maintenance (Overlay & Sealing)</span>
+                                    </div>
+                                </div>
+                            </div>
+
+                        </div>
+                    </div>
+
+                    <div class="console-footer" style="display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 1rem;">
+                        <p><i data-lucide="info"></i> The APPA Console is a full-stack system built with React, Vite, and FastAPI. It processes gigabytes of GPR and 3D laser data.</p>
+                        <a href="http://localhost:5173" target="_blank" class="btn-primary" style="margin-left: auto;">
+                            <i data-lucide="external-link"></i> Launch APPA Console Live
+                        </a>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Selected Publications Section -->
+        <section id="publications" class="section bg-alt">
+            <div class="section-container">
+                <div class="section-header">
+                    <span class="section-tag">Scholarly Achievements</span>
+                    <h2 class="section-title">Selected Publications</h2>
+                    <p class="section-desc">Selected peer-reviewed articles from 48 total publications (35 journal articles, 21 Q1, 26 first/corresponding author, >900 citations, h-index 17).</p>
+                </div>
+
+                <!-- Publication Search & Filter Bar -->
+                <div class="pub-controls">
+                    <div class="search-box">
+                        <i data-lucide="search"></i>
+                        <input type="text" id="pubSearch" placeholder="Search publications by title, journal, method, or keyword (e.g. GPR, LLM, Slag, Hydrophone, Game Theory)...">
+                    </div>
+                    <div class="filter-buttons">
+                        <button class="filter-btn active" data-filter="all">All (48)</button>
+                        <button class="filter-btn" data-filter="q1">Q1 Top Journals</button>
+                        <button class="filter-btn" data-filter="ai">AI & LLMs</button>
+                        <button class="filter-btn" data-filter="sensing">GPR & Sensing</button>
+                        <button class="filter-btn" data-filter="sustainability">Sustainability</button>
+                        <button class="filter-btn" data-filter="management">Economics & Management</button>
+                    </div>
+                </div>
+
+                <!-- Publication Cards -->
+                <div class="pub-list" id="pubList">
+                    <!-- Pub 1 -->
+                    <div class="pub-card glass-card" data-category="q1 sensing ai">
+                        <div class="pub-badge-row">
+                            <span class="pub-journal-badge">Automation in Construction (2025)</span>
+                            <span class="pub-q1"><i data-lucide="star"></i> Q1 Top Journal (Ranked 2/193)</span>
+                        </div>
+                        <h3 class="pub-title">Pavement thickness evaluation using GPR and fuzzy logic</h3>
+                        <p class="pub-authors"><strong>Ali Fares</strong>, Tarek Zayed</p>
+                        <p class="pub-meta">Automation in Construction, Volume 175, 106236. DOI: 10.1016/j.autcon.2025.106236</p>
+                        <p class="pub-abstract">Develops an automated GPR signal processing and fuzzy logic model for non-destructive layer thickness assessment across asphalt and granular base courses with sub-centimeter accuracy.</p>
+                    </div>
+
+                    <!-- Pub 2 -->
+                    <div class="pub-card glass-card" data-category="q1 ai">
+                        <div class="pub-badge-row">
+                            <span class="pub-journal-badge">Results in Engineering (2026)</span>
+                            <span class="pub-q1"><i data-lucide="star"></i> Q1 Journal (IF 9.4, Ranked 5/178)</span>
+                        </div>
+                        <h3 class="pub-title">Leveraging large language models as synthetic experts: a methodology and validation framework for pavement performance assessment</h3>
+                        <p class="pub-authors"><strong>Ali Fares</strong>, Tarek Zayed</p>
+                        <p class="pub-meta">Results in Engineering (2026). High-impact open-access research.</p>
+                        <p class="pub-abstract">Presents a pioneering zero-shot framework deploying Multimodal LLMs (MLLMs) as synthetic experts to interpret distress imagery, validated against expert engineering panels.</p>
+                    </div>
+
+                    <!-- Pub 3 -->
+                    <div class="pub-card glass-card" data-category="q1 sensing ai">
+                        <div class="pub-badge-row">
+                            <span class="pub-journal-badge">Automation in Construction (2024)</span>
+                            <span class="pub-q1"><i data-lucide="star"></i> Q1 Top Journal</span>
+                        </div>
+                        <h3 class="pub-title">Automated rebar recognition and corrosion assessment of concrete bridge decks using ground penetrating radar</h3>
+                        <p class="pub-authors"><strong>Ali Fares</strong>, Tarek Zayed</p>
+                        <p class="pub-meta">Automation in Construction (2024).</p>
+                        <p class="pub-abstract">Introduces deep learning and GPR B-scan amplitude attenuation algorithms for automatic rebar localization, cover depth measurement, and corrosion mapping in reinforced concrete bridge decks.</p>
+                    </div>
+
+                    <!-- Pub 4 -->
+                    <div class="pub-card glass-card" data-category="q1 sustainability">
+                        <div class="pub-badge-row">
+                            <span class="pub-journal-badge">Environmental Sustainable Soil Stabilization / Green Materials</span>
+                            <span class="pub-q1"><i data-lucide="star"></i> Sustainability & LCA</span>
+                        </div>
+                        <h3 class="pub-title">Life cycle assessment of fly ash, olive cake ash, and zeolite for environmentally sustainable soil stabilization</h3>
+                        <p class="pub-authors"><strong>Ali Fares</strong>, et al.</p>
+                        <p class="pub-meta">Environmental Science and Sustainable Infrastructure Research.</p>
+                        <p class="pub-abstract">Quantifies carbon reduction and environmental impacts using Life Cycle Assessment (LCA) for industrial byproducts (fly ash, olive cake ash, zeolite) in sustainable soil stabilization.</p>
+                    </div>
+
+                    <!-- Pub 5 -->
+                    <div class="pub-card glass-card" data-category="q1 sustainability">
+                        <div class="pub-badge-row">
+                            <span class="pub-journal-badge">Green Concrete & Industrial Byproducts</span>
+                            <span class="pub-q1"><i data-lucide="star"></i> Materials Research</span>
+                        </div>
+                        <h3 class="pub-title">Characteristics of ferrochrome slag aggregate and its uses as a green material in concrete – A review</h3>
+                        <p class="pub-authors"><strong>Ali Fares</strong>, et al.</p>
+                        <p class="pub-meta">Construction & Building Materials Science.</p>
+                        <p class="pub-abstract">Comprehensive review of ferrochrome slag as coarse and fine aggregates in eco-friendly concrete, examining thermal endurance, strength properties, and high-temperature performance.</p>
+                    </div>
+
+                    <!-- Pub 6 -->
+                    <div class="pub-card glass-card" data-category="q1 management">
+                        <div class="pub-badge-row">
+                            <span class="pub-journal-badge">Journal of Construction Engineering and Management (2025)</span>
+                            <span class="pub-q1"><i data-lucide="star"></i> Q1 Journal (ASCE)</span>
+                        </div>
+                        <h3 class="pub-title">Using game theory to negotiate win-win payment terms between contractors and subcontractors</h3>
+                        <p class="pub-authors"><strong>Ali Fares</strong>, Ashraf El-Sawy, Tarek Zayed</p>
+                        <p class="pub-meta">Journal of Construction Engineering and Management, 151(5).</p>
+                        <p class="pub-abstract">Mathematical game theory model establishing cooperative Nash equilibria for contract payment terms, cash flow optimization, and risk sharing in major infrastructure projects.</p>
+                    </div>
+                </div>
+
+                <div class="pub-footer">
+                    <p>Displaying representative publications from 48 total peer-reviewed works.</p>
+                    <a href="https://scholar.google.com/citations?user=VYn8rEEAAAAJ" target="_blank" rel="noopener" class="btn-primary">
+                        <i data-lucide="external-link"></i> View Full Citation Profile on Google Scholar
+                    </a>
+                </div>
+            </div>
+        </section>
+
+        <!-- Teaching & Supervision Section -->
+        <section id="teaching" class="section">
+            <div class="section-container">
+                <div class="section-header">
+                    <span class="section-tag">Academic Citizenship</span>
+                    <h2 class="section-title">Teaching, Mentorship & Grants</h2>
+                </div>
+
+                <div class="teaching-grid">
+                    <div class="teaching-card glass-card">
+                        <div class="card-icon-box"><i data-lucide="book-open"></i></div>
+                        <h3>Teaching & Pedagogy</h3>
+                        <ul>
+                            <li>Delivered tutorials & labs across 5 undergraduate/postgraduate courses at PolyU & SQU.</li>
+                            <li>Certified under PolyU’s <em>Becoming an Effective Teaching Assistant (BETA)</em> program.</li>
+                            <li>Specialized in Civil Engineering Computation, BIM, Infrastructure Management, and Data Science.</li>
+                        </ul>
+                    </div>
+
+                    <div class="teaching-card glass-card">
+                        <div class="card-icon-box"><i data-lucide="users"></i></div>
+                        <h3>Student Supervision</h3>
+                        <ul>
+                            <li>Co-supervised 2 research students to successful completion and peer-reviewed Q1 journal publication.</li>
+                            <li>Mentored undergraduate honours and MSc thesis projects in deep learning & GPR signal analysis.</li>
+                        </ul>
+                    </div>
+
+                    <div class="teaching-card glass-card">
+                        <div class="card-icon-box"><i data-lucide="banknote"></i></div>
+                        <h3>Grants & Industry Liaison</h3>
+                        <ul>
+                            <li>Technical contributor & writer for an awarded <strong>HKD 2,573,000 Innovation and Technology Fund (ITF)</strong> government grant.</li>
+                            <li>2-year research liaison with the Hong Kong Highways Department (2022–2024).</li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Contact Section -->
+        <section id="contact" class="section bg-alt">
+            <div class="section-container">
+                <div class="contact-box glass-card">
+                    <div class="contact-content">
+                        <span class="section-tag">Get In Touch</span>
+                        <h2>Let's Collaborate on Intelligent Infrastructure</h2>
+                        <p>I am open to academic faculty appointments, research collaborations, grant proposals, and industry partnerships in AI, Digital Twins, Sustainable Materials, and infrastructure asset management.</p>
+                        
+                        <div class="contact-details">
+                            <a href="mailto:ali-i.fares@connect.polyu.hk" class="contact-item">
+                                <i data-lucide="mail"></i> ali-i.fares@connect.polyu.hk
+                            </a>
+                            <div class="contact-item">
+                                <i data-lucide="map-pin"></i> Department of Civil and Environmental Engineering, PolyU, Hong Kong
+                            </div>
+                        </div>
+
+                        <div class="social-links">
+                            <a href="https://scholar.google.com/citations?user=VYn8rEEAAAAJ" target="_blank" rel="noopener" class="social-btn" title="Google Scholar">
+                                <i data-lucide="graduation-cap"></i> Google Scholar
+                            </a>
+                            <a href="https://orcid.org/0000-0002-4286-2755" target="_blank" rel="noopener" class="social-btn" title="ORCID Profile">
+                                <i data-lucide="link"></i> ORCID
+                            </a>
+                            <a href="https://www.linkedin.com/in/ali-if-fares/" target="_blank" rel="noopener" class="social-btn" title="LinkedIn Profile">
+                                <i data-lucide="linkedin"></i> LinkedIn
+                            </a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <!-- Footer -->
+    <footer class="footer">
+        <div class="footer-container">
+            <p>© 2026 Dr. Ali Fares. All rights reserved. | Department of Civil and Environmental Engineering, The Hong Kong Polytechnic University</p>
+        </div>
+    </footer>
+
+    <script src="script.js"></script>
+    <script>
+        lucide.createIcons();
+    </script>
+</body>
+</html>
