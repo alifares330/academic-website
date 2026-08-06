@@ -9,6 +9,7 @@ document.addEventListener('DOMContentLoaded', () => {
     initFuzzyCalculator();
     initPubSearch();
     initMobileNav();
+    initAppaStatus();
 });
 
 // 1. Background Particle & Wave Canvas
@@ -368,4 +369,82 @@ function initMobileNav() {
             navLinks.style.borderBottom = '1px solid rgba(255, 255, 255, 0.1)';
         }
     });
+}
+
+
+/* ---------------------------------------------------------------------------
+   9. APPA live status
+   ---------------------------------------------------------------------------
+   The console runs on a lab machine, so it is not always up. Rather than ship a
+   button that 404s whenever the server is off, ask the backend and render the
+   truth: green and clickable when it answers, amber with a contact line when it
+   does not. No upkeep — the day the server comes online the page says so itself.
+
+   Two things to know when you move it to the lab server:
+     * this page is HTTPS, so APPA_URL must be HTTPS too. A browser silently
+       blocks an http:// request from an https:// page, and a self-signed
+       certificate fails the same way. Let's Encrypt is free.
+     * the backend already sends permissive CORS and exposes /api/health, so
+       nothing needs changing on the APPA side.
+   Set APPA_URL to '' to hide the link and show only the contact message.
+--------------------------------------------------------------------------- */
+const APPA_URL = 'https://sequence-retrieval-purely.ngrok-free.dev';
+const APPA_EMAIL = 'ali-i.fares@connect.polyu.hk';
+
+async function initAppaStatus() {
+    const dot = document.getElementById('appa-dot');
+    const btn = document.getElementById('appa-btn');
+    const label = document.getElementById('appa-label');
+    const note = document.getElementById('appa-note');
+    if (!dot || !btn || !label || !note) return;
+
+    const offline = (why) => {
+        dot.style.background = '#f0b429';
+        dot.style.boxShadow = '0 0 0 4px rgba(240,180,41,.16)';
+        label.textContent = 'Console offline';
+        btn.removeAttribute('href');
+        btn.setAttribute('aria-disabled', 'true');
+        // Do NOT just dim it: btn-primary is a bright gradient, and lowering
+        // opacity turns the label into an unreadable smear. Strip the gradient
+        // and use an explicit muted style so the text stays legible.
+        btn.style.background = 'transparent';
+        btn.style.backgroundImage = 'none';
+        btn.style.boxShadow = 'none';
+        btn.style.border = '1px solid rgba(255,255,255,.22)';
+        btn.style.color = '#cbd5e1';
+        btn.style.opacity = '1';
+        btn.style.cursor = 'default';
+        btn.style.pointerEvents = 'none';
+        note.style.color = '#94a3b8';
+        note.innerHTML = why +
+            ` <a href="mailto:${APPA_EMAIL}?subject=APPA%20demo%20access"` +
+            ' style="color:#5eead4;text-decoration:underline;">Email me</a> for a demo or access.';
+    };
+
+    const url = (APPA_URL || '').replace(/\/+$/, '');
+    if (!url) { offline('The console runs on a lab server.'); return; }
+
+    try {
+        // AbortController rather than a fetch timeout: wider browser support, and
+        // an unreachable host would otherwise hang for the full TCP timeout.
+        const ctrl = new AbortController();
+        const timer = setTimeout(() => ctrl.abort(), 5000);
+        const res = await fetch(url + '/api/health', {
+            signal: ctrl.signal, mode: 'cors', cache: 'no-store',
+            headers: { 'ngrok-skip-browser-warning': 'true' },
+        });
+        clearTimeout(timer);
+        if (!res.ok) throw new Error(res.status);
+
+        dot.style.background = '#22c55e';
+        dot.style.boxShadow = '0 0 0 4px rgba(34,197,94,.20)';
+        label.textContent = 'Launch APPA Console';
+        btn.setAttribute('href', url);
+        btn.setAttribute('target', '_blank');
+        btn.setAttribute('rel', 'noopener');
+        btn.removeAttribute('aria-disabled');
+        note.textContent = 'Live now';
+    } catch (err) {
+        offline('The console is not reachable at the moment.');
+    }
 }

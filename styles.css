@@ -970,3 +970,47 @@ body {
         display: block;
     }
 }
+
+
+/* ---------------------------------------------------------------------------
+   Real APPA screenshot
+   ---------------------------------------------------------------------------
+   The console UI is a light interface and this page is near-black. Rather than
+   dim the screenshot — which makes a crisp UI look muddy and slightly evasive —
+   it sits inside a dark frame with padding, so the brightness change reads as
+   deliberate. Hue was never the problem: APPA's indigo accent and this page's
+   cyan are both cool, and the red crack overlay is the only warm element, which
+   usefully draws the eye to the result.
+-------------------------------------------------------------------------- */
+.appa-shot {
+    margin: 0 0 2rem;
+    padding: 0.75rem;
+    background: rgba(255, 255, 255, 0.04);
+    border: 1px solid rgba(255, 255, 255, 0.12);
+    border-radius: 14px;
+    box-shadow: 0 18px 50px rgba(0, 0, 0, 0.45);
+}
+.appa-shot picture,
+.appa-shot img {
+    display: block;
+    width: 100%;
+    height: auto;
+    border-radius: 8px;
+}
+.appa-shot figcaption {
+    margin: 0.85rem 0.35rem 0.2rem;
+    font-size: 0.86rem;
+    line-height: 1.55;
+    color: rgba(255, 255, 255, 0.62);
+}
+.appa-shot figcaption strong { color: rgba(255, 255, 255, 0.92); font-weight: 600; }
+.appa-shot figcaption code {
+    font-size: 0.94em;
+    padding: 0.05em 0.35em;
+    border-radius: 4px;
+    background: rgba(255, 255, 255, 0.08);
+}
+@media (max-width: 640px) {
+    .appa-shot { padding: 0.4rem; }
+    .appa-shot figcaption { font-size: 0.8rem; }
+}

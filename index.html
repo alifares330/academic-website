@@ -228,7 +228,26 @@
                     <p class="section-desc">Research platform · Ten analysis tools · One unified console connecting multi-sensor raw data to auditable condition ratings.</p>
                 </div>
 
-                <!-- Interactive Software Console Simulation -->
+                <!-- Real output. A dark frame + padding mediates between the
+                     page's near-black background and the console's light UI, so
+                     the screenshot reads as a window onto the app rather than a
+                     white rectangle pasted onto the page. -->
+                <figure class="appa-shot">
+                    <picture>
+                        <source srcset="assets/appa-console-full.webp" type="image/webp">
+                        <img src="assets/appa-console-full.jpg"
+                             alt="APPA console running Crack Assessment (DL) on the Crack002 sample: FPN EfficientNet-B4 on CUDA, coverage 1.99%, IoU 0.523 against the supplied ground-truth mask."
+                             loading="lazy" decoding="async" width="1800" height="1165">
+                    </picture>
+                    <figcaption>
+                        Actual output — <code>Crack002</code> sample, FPN&nbsp;·&nbsp;EfficientNet-B4 on CUDA.
+                        Coverage 1.99&thinsp;%, IoU <strong>0.523</strong> against the supplied ground-truth mask.
+                        IoU is unforgiving on hairline cracks: a one-pixel offset along a
+                        three-pixel-wide crack costs a third of the score.
+                    </figcaption>
+                </figure>
+
+                <!-- Interactive walkthrough (animated illustration, not a live run) -->
                 <div class="console-wrapper glass-card">
                     <div class="console-header">
                         <div class="console-dots">
@@ -237,7 +256,7 @@
                             <span class="dot green"></span>
                         </div>
                         <div class="console-title"><i data-lucide="terminal"></i> APPA Console v3.4 [Research Edition]</div>
-                        <div class="console-status"><span class="pulse-indicator"></span> Interactive Sandbox Live</div>
+                        <div class="console-status"><span class="pulse-indicator"></span> Interactive walkthrough</div>
                     </div>
 
                     <div class="console-body">
@@ -265,7 +284,7 @@
                             <!-- Tool 1: Surface Crack Segmentation -->
                             <div class="tool-panel active" id="tool-crack">
                                 <div class="tool-header-flex">
-                                    <h4>Surface Distress Segmentation (SegFormer / SAM 3)</h4>
+                                    <h4>Surface Distress Segmentation (FPN · EfficientNet-B4 / SAM 3)</h4>
                                     <button class="btn-sm btn-outline" id="toggleMaskBtn"><i data-lucide="sliders"></i> Toggle AI Segmentation Mask</button>
                                 </div>
                                 <div class="vision-demo-box">
@@ -276,14 +295,14 @@
                                             <path d="M 310 180 Q 360 240 410 270" stroke="#00ffaa" stroke-width="3" fill="none" class="crack-line"></path>
                                         </svg>
                                         <div class="vision-info-overlay">
-                                            <span class="tag-status">Model: SegFormer-B5 + SAM 3</span>
-                                            <span class="tag-status">Crack Length: 4.82 m</span>
-                                            <span class="tag-status">Mean Width: 3.4 mm</span>
-                                            <span class="tag-status accuracy">Ground Truth IoU: 94.2%</span>
+                                            <span class="tag-status">Model: FPN · EfficientNet-B4</span>
+                                            <span class="tag-status">Coverage: 1.99%</span>
+                                            <span class="tag-status">Resolution: 2048×1536</span>
+                                            <span class="tag-status accuracy">Ground Truth IoU: 0.523</span>
                                         </div>
                                     </div>
                                 </div>
-                                <p class="tool-caption"><i data-lucide="info"></i> Click "Toggle AI Segmentation Mask" to switch between raw road pavement imagery and pixel-level deep learning crack masks.</p>
+                                <p class="tool-caption"><i data-lucide="info"></i> Animated illustration of the segmentation step; the figures above are from the real <code>Crack002</code> run shown at the top of this section.</p>
                             </div>
 
                             <!-- Tool 2: GPR Subsurface Interfacing -->
@@ -393,9 +412,17 @@
 
                     <div class="console-footer" style="display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 1rem;">
                         <p><i data-lucide="info"></i> The APPA Console is a full-stack system built with React, Vite, and FastAPI. It processes gigabytes of GPR and 3D laser data.</p>
-                        <a href="http://localhost:5173" target="_blank" class="btn-primary" style="margin-left: auto;">
-                            <i data-lucide="external-link"></i> Launch APPA Console Live
-                        </a>
+                        <!-- Live status. The button reflects whether the APPA backend is
+                             actually reachable, so it is never a dead link. Set the URL in
+                             APPA_URL at the top of script.js. -->
+                        <div id="appa-launch" style="margin-left:auto;display:flex;align-items:center;gap:.85rem;flex-wrap:wrap;">
+                            <span id="appa-dot" aria-hidden="true"
+                                  style="width:9px;height:9px;border-radius:50%;background:#94a3b8;flex:none;"></span>
+                            <a id="appa-btn" class="btn-primary" aria-disabled="true">
+                                <i data-lucide="external-link"></i> <span id="appa-label">Checking…</span>
+                            </a>
+                            <span id="appa-note" style="font-size:.85rem;opacity:.75;"></span>
+                        </div>
                     </div>
                 </div>
             </div>
