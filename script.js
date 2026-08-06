@@ -10,6 +10,7 @@ document.addEventListener('DOMContentLoaded', () => {
     initPubSearch();
     initMobileNav();
     initAppaStatus();
+    initThemeToggle();
 });
 
 // 1. Background Particle & Wave Canvas
@@ -388,7 +389,7 @@ function initMobileNav() {
        nothing needs changing on the APPA side.
    Set APPA_URL to '' to hide the link and show only the contact message.
 --------------------------------------------------------------------------- */
-const APPA_URL = 'https://sequence-retrieval-purely.ngrok-free.dev';
+const APPA_URL = 'https://appa.alifares.me';
 const APPA_EMAIL = 'ali-i.fares@connect.polyu.hk';
 
 async function initAppaStatus() {
@@ -431,7 +432,6 @@ async function initAppaStatus() {
         const timer = setTimeout(() => ctrl.abort(), 5000);
         const res = await fetch(url + '/api/health', {
             signal: ctrl.signal, mode: 'cors', cache: 'no-store',
-            headers: { 'ngrok-skip-browser-warning': 'true' },
         });
         clearTimeout(timer);
         if (!res.ok) throw new Error(res.status);
@@ -447,4 +447,73 @@ async function initAppaStatus() {
     } catch (err) {
         offline('The console is not reachable at the moment.');
     }
+}
+
+
+/* ---------------------------------------------------------------------------
+   10. Light / dark theme
+   ---------------------------------------------------------------------------
+   Preference order: whatever the visitor last chose, else whatever their
+   operating system asks for. The choice is applied to <html> as data-theme, and
+   styles.css does the rest — every colour on the page is already a variable.
+
+   The inline script in <head> sets this BEFORE first paint; without it a dark
+   page flashes for a frame before flipping to light, which looks broken.
+--------------------------------------------------------------------------- */
+function applyTheme(theme) {
+    document.documentElement.setAttribute('data-theme', theme);
+    const btn = document.getElementById('themeToggle');
+    if (btn) {
+        // Show the theme you would switch TO, which is the convention people expect.
+        btn.innerHTML = theme === 'light'
+            ? '<i data-lucide="moon"></i>'
+            : '<i data-lucide="sun"></i>';
+        btn.setAttribute('aria-label',
+            theme === 'light' ? 'Switch to dark theme' : 'Switch to light theme');
+        if (window.lucide) lucide.createIcons();
+    }
+    // Repaint the decorative canvas so particles are not stranded mid-frame.
+    const c = document.getElementById('bgCanvas');
+    if (c) c.style.transition = 'opacity .3s ease';
+}
+
+function initThemeToggle() {
+    // Preference order: the visitor's own previous choice, else whatever their
+    // operating system asks for. Only an explicit click is ever stored, so a
+    // visitor who has never used the toggle keeps following their OS - including
+    // when the OS flips at sunset.
+    const stored = localStorage.getItem('theme');
+    const osLight = window.matchMedia
+        && window.matchMedia('(prefers-color-scheme: light)').matches;
+    applyTheme(stored === 'dark' || stored === 'light'
+        ? stored
+        : (osLight ? 'light' : 'dark'));
+
+    // Track the OS while no explicit choice exists, so the page follows a
+    // system theme change live rather than only on reload.
+    if (window.matchMedia) {
+        const mq = window.matchMedia('(prefers-color-scheme: light)');
+        const onOsChange = (e) => {
+            if (!localStorage.getItem('theme')) applyTheme(e.matches ? 'light' : 'dark');
+        };
+        if (mq.addEventListener) mq.addEventListener('change', onOsChange);
+        else if (mq.addListener) mq.addListener(onOsChange);
+    }
+
+    const btn = document.getElementById('themeToggle');
+    if (!btn) return;
+    btn.addEventListener('click', () => {
+        const next = document.documentElement.getAttribute('data-theme') === 'light'
+            ? 'dark' : 'light';
+        // Choosing the theme the OS already asks for is the same as having no
+        // preference, so clear the override instead of pinning it. That keeps
+        // "follow my system" reachable from a two-state toggle - including for
+        // someone who pinned a theme earlier - and lets a later OS change be
+        // honoured again rather than being masked forever.
+        const osTheme = (window.matchMedia
+            && window.matchMedia('(prefers-color-scheme: light)').matches) ? 'light' : 'dark';
+        if (next === osTheme) localStorage.removeItem('theme');
+        else localStorage.setItem('theme', next);
+        applyTheme(next);
+    });
 }

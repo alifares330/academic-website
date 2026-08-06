@@ -18,6 +18,11 @@
     --font-sans: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
     --font-mono: 'JetBrains Mono', monospace;
     
+    --bg-deep: #04070e;
+    --on-accent: #040d1a;
+    --shot-frame: rgba(255, 255, 255, 0.05);
+    --shot-border: rgba(255, 255, 255, 0.14);
+    --nav-bg: rgba(11, 15, 25, 0.85);
     --transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
 }
 
@@ -66,8 +71,8 @@ body {
     left: 0;
     width: 100%;
     z-index: 1000;
-    background: rgba(11, 15, 25, 0.85);
-    backdrop-filter: blur(12px);
+    background: var(--nav-bg);
+    backdrop-filter: blur(12px) saturate(140%);
     border-bottom: 1px solid var(--border-color);
     transition: var(--transition);
 }
@@ -140,7 +145,7 @@ body {
 
 .btn-primary {
     background: linear-gradient(135deg, var(--accent-emerald), var(--accent-cyan));
-    color: #040d1a;
+    color: var(--on-accent);
     border: none;
     box-shadow: 0 4px 14px rgba(0, 255, 170, 0.25);
 }
@@ -399,7 +404,7 @@ body {
 }
 
 .console-header {
-    background: #080c14;
+    background: var(--bg-alt);
     padding: 0.85rem 1.25rem;
     display: flex;
     align-items: center;
@@ -518,7 +523,7 @@ body {
 .vision-demo-box {
     width: 100%;
     height: 250px;
-    background: #060911 url('https://images.unsplash.com/photo-1515162816999-a0c47dc192f7?q=80&w=800') center/cover no-repeat;
+    background: var(--bg-deep) url('https://images.unsplash.com/photo-1515162816999-a0c47dc192f7?q=80&w=800') center/cover no-repeat;
     border-radius: 8px;
     position: relative;
     overflow: hidden;
@@ -576,7 +581,7 @@ body {
 /* GPR Canvas & Rutting Canvas */
 .gpr-canvas-container, .rutting-canvas-container {
     width: 100%;
-    background: #04070e;
+    background: var(--bg-deep);
     border-radius: 8px;
     padding: 0.5rem;
     border: 1px solid var(--border-color);
@@ -617,7 +622,7 @@ body {
 
 /* LLM Chat Demo */
 .llm-chat-box {
-    background: #04070e;
+    background: var(--bg-deep);
     border-radius: 8px;
     padding: 1rem;
     border: 1px solid var(--border-color);
@@ -677,7 +682,7 @@ body {
 }
 
 .calc-results-box {
-    background: #04070e;
+    background: var(--bg-deep);
     border-radius: 8px;
     padding: 1.25rem;
     border: 1px solid var(--border-highlight);
@@ -710,7 +715,7 @@ body {
 }
 
 .console-footer {
-    background: #080c14;
+    background: var(--bg-alt);
     padding: 0.75rem 1.25rem;
     font-size: 0.85rem;
     color: var(--text-muted);
@@ -975,42 +980,129 @@ body {
 /* ---------------------------------------------------------------------------
    Real APPA screenshot
    ---------------------------------------------------------------------------
-   The console UI is a light interface and this page is near-black. Rather than
-   dim the screenshot — which makes a crisp UI look muddy and slightly evasive —
-   it sits inside a dark frame with padding, so the brightness change reads as
-   deliberate. Hue was never the problem: APPA's indigo accent and this page's
-   cyan are both cool, and the red crack overlay is the only warm element, which
-   usefully draws the eye to the result.
+   The console UI is light and this page is (by default) near-black. Rather than
+   dim the screenshot — which makes a crisp interface look muddy and slightly
+   evasive — it sits in a framed panel so the brightness change reads as
+   deliberate. Hue was never the issue: APPA's indigo and this page's cyan are
+   both cool, and the red crack overlay is the only warm element, which usefully
+   pulls the eye to the result.
+
+   The frame follows the theme, so it stays a frame in light mode too.
 -------------------------------------------------------------------------- */
 .appa-shot {
     margin: 0 0 2rem;
-    padding: 0.75rem;
-    background: rgba(255, 255, 255, 0.04);
-    border: 1px solid rgba(255, 255, 255, 0.12);
+    padding: clamp(0.5rem, 1.4vw, 1rem);
+    background: var(--shot-frame);
+    border: 1px solid var(--shot-border);
     border-radius: 14px;
-    box-shadow: 0 18px 50px rgba(0, 0, 0, 0.45);
+    box-shadow: 0 18px 50px rgba(0, 0, 0, 0.35);
+    overflow: hidden;          /* nothing escapes the rounded corners */
 }
-.appa-shot picture,
+.appa-shot picture { display: block; }
 .appa-shot img {
     display: block;
     width: 100%;
-    height: auto;
+    max-width: 100%;
+    height: auto;              /* keeps the 1800x1165 aspect at any width */
     border-radius: 8px;
 }
 .appa-shot figcaption {
-    margin: 0.85rem 0.35rem 0.2rem;
-    font-size: 0.86rem;
-    line-height: 1.55;
-    color: rgba(255, 255, 255, 0.62);
+    margin: 0.9rem 0.25rem 0.15rem;
+    font-size: 0.9rem;
+    line-height: 1.6;
+    color: var(--text-muted);
 }
-.appa-shot figcaption strong { color: rgba(255, 255, 255, 0.92); font-weight: 600; }
+.appa-shot figcaption strong { color: var(--text-main); font-weight: 600; }
 .appa-shot figcaption code {
-    font-size: 0.94em;
-    padding: 0.05em 0.35em;
+    font-family: var(--font-mono);
+    font-size: 0.9em;
+    padding: 0.08em 0.4em;
     border-radius: 4px;
-    background: rgba(255, 255, 255, 0.08);
+    background: var(--bg-alt);
+    color: var(--text-main);
 }
 @media (max-width: 640px) {
-    .appa-shot { padding: 0.4rem; }
-    .appa-shot figcaption { font-size: 0.8rem; }
+    .appa-shot figcaption { font-size: 0.82rem; }
 }
+
+
+/* ===========================================================================
+   LIGHT THEME
+   ===========================================================================
+   Every colour on this page already came from a custom property, so the whole
+   theme is one override block. Only two things needed real thought:
+
+   * The neon accents (#00ffaa / #00e5ff) are unreadable on white — they carry
+     almost no contrast against a light background. Light mode uses darkened
+     equivalents of the same hues, so the identity survives but text passes.
+   * --on-accent is the colour of text sitting ON an accent fill. It stays dark
+     in both themes because both accent colours are light.
+=========================================================================== */
+[data-theme="light"] {
+    --bg-dark: #f7f8fa;
+    --bg-alt: #eef1f5;
+    --bg-deep: #e7ebf0;
+    --bg-card: rgba(255, 255, 255, 0.92);
+    --bg-card-hover: rgba(255, 255, 255, 1);
+    --border-color: rgba(15, 23, 42, 0.10);
+    --border-highlight: rgba(8, 145, 178, 0.35);
+
+    --accent-emerald: #0f9d76;
+    --accent-cyan: #0e7490;
+    --accent-blue: #2563eb;
+
+    --text-main: #0f172a;
+    --text-muted: #475569;
+    --text-dim: #64748b;
+
+    --on-accent: #ffffff;
+    --shot-frame: rgba(15, 23, 42, 0.04);
+    --shot-border: rgba(15, 23, 42, 0.12);
+    /* Near-white, not pure — a translucent white bar over a white page
+       has nothing to separate it from the content beneath. */
+    --nav-bg: rgba(252, 253, 254, 0.86);
+}
+
+/* Cards carry a shadow rather than a glow once the page is light. */
+[data-theme="light"] .glass-card {
+    box-shadow: 0 1px 2px rgba(15, 23, 42, 0.05), 0 8px 24px rgba(15, 23, 42, 0.06);
+}
+[data-theme="light"] body { background: var(--bg-dark); }
+
+/* The particle canvas is decorative and reads as dirt on a light page. */
+[data-theme="light"] #bgCanvas { opacity: 0.25; }
+
+/* --------------------------------------------------------------------- */
+.theme-toggle {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    width: 34px;
+    height: 34px;
+    margin-right: 0.35rem;
+    padding: 0;
+    border: 1px solid var(--border-color);
+    border-radius: 8px;
+    background: transparent;
+    color: var(--text-muted);
+    cursor: pointer;
+    transition: var(--transition);
+}
+.theme-toggle:hover {
+    color: var(--accent-cyan);
+    border-color: var(--border-highlight);
+}
+.theme-toggle i, .theme-toggle svg { width: 16px; height: 16px; }
+
+
+/* The dark bar over a light page was the one thing that still read as
+   half-converted. In light mode the bar is near-white with a defined lower
+   edge and a whisper of shadow, so it separates from the content by depth
+   rather than by darkness. */
+[data-theme="light"] .navbar {
+    border-bottom: 1px solid rgba(15, 23, 42, 0.09);
+    box-shadow: 0 1px 3px rgba(15, 23, 42, 0.04);
+}
+[data-theme="light"] .nav-link { color: var(--text-muted); }
+[data-theme="light"] .nav-link:hover { color: var(--accent-cyan); }
+[data-theme="light"] .brand-text { color: var(--text-main); }

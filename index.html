@@ -17,6 +17,22 @@
     <script src="https://unpkg.com/lucide@latest"></script>
 
     <link rel="stylesheet" href="styles.css">
+    <script>
+        // Set the theme before first paint. Without this the dark palette
+        // renders for one frame and then flips, which reads as a bug.
+        (function () {
+            try {
+                var t = localStorage.getItem('theme');
+                if (t !== 'dark' && t !== 'light') {
+                    // No stored choice: follow the operating system.
+                    t = (window.matchMedia &&
+                         window.matchMedia('(prefers-color-scheme: light)').matches)
+                        ? 'light' : 'dark';
+                }
+                document.documentElement.setAttribute('data-theme', t);
+            } catch (e) { /* private mode: styles.css defaults to dark */ }
+        })();
+    </script>
 </head>
 <body>
     <!-- Background Canvas for Interactive Visualizer -->
@@ -26,9 +42,13 @@
     <header class="navbar" id="navbar">
         <div class="nav-container">
             <a href="#hero" class="nav-brand">
-                <span class="brand-text">Ali Fares<span class="brand-dot">.ai</span></span>
+                <span class="brand-text">Ali Fares</span>
             </a>
             <nav class="nav-links">
+                <button id="themeToggle" class="theme-toggle" type="button"
+                        aria-label="Switch between light and dark theme" title="Switch theme">
+                    <i data-lucide="moon"></i>
+                </button>
                 <a href="#about" class="nav-link">About</a>
                 <a href="#research" class="nav-link">What I Work On</a>
                 <a href="#software" class="nav-link nav-highlight">APPA Console</a>
@@ -247,169 +267,9 @@
                     </figcaption>
                 </figure>
 
-                <!-- Interactive walkthrough (animated illustration, not a live run) -->
+                <!-- Launch bar. What remains of the old console frame: the mock
+                     panels are gone, the live status stays. -->
                 <div class="console-wrapper glass-card">
-                    <div class="console-header">
-                        <div class="console-dots">
-                            <span class="dot red"></span>
-                            <span class="dot yellow"></span>
-                            <span class="dot green"></span>
-                        </div>
-                        <div class="console-title"><i data-lucide="terminal"></i> APPA Console v3.4 [Research Edition]</div>
-                        <div class="console-status"><span class="pulse-indicator"></span> Interactive walkthrough</div>
-                    </div>
-
-                    <div class="console-body">
-                        <!-- Sidebar Navigation for Tools -->
-                        <div class="console-sidebar">
-                            <button class="console-tab-btn active" data-tool="crack">
-                                <i data-lucide="eye"></i> 1. Surface Crack Segmentation
-                            </button>
-                            <button class="console-tab-btn" data-tool="gpr">
-                                <i data-lucide="layers"></i> 2. GPR Subsurface Interfacing
-                            </button>
-                            <button class="console-tab-btn" data-tool="rutting">
-                                <i data-lucide="bar-chart-3"></i> 3. 3D Rut Depth Analytics
-                            </button>
-                            <button class="console-tab-btn" data-tool="llm">
-                                <i data-lucide="bot"></i> 4. LLM Synthetic Expert Rating
-                            </button>
-                            <button class="console-tab-btn" data-tool="fuzzy">
-                                <i data-lucide="calculator"></i> 5. Fuzzy AHP & PCI Calculator
-                            </button>
-                        </div>
-
-                        <!-- Tool Content Area -->
-                        <div class="console-content">
-                            <!-- Tool 1: Surface Crack Segmentation -->
-                            <div class="tool-panel active" id="tool-crack">
-                                <div class="tool-header-flex">
-                                    <h4>Surface Distress Segmentation (FPN · EfficientNet-B4 / SAM 3)</h4>
-                                    <button class="btn-sm btn-outline" id="toggleMaskBtn"><i data-lucide="sliders"></i> Toggle AI Segmentation Mask</button>
-                                </div>
-                                <div class="vision-demo-box">
-                                    <div class="image-stage">
-                                        <svg class="crack-svg-overlay" id="crackOverlay" viewBox="0 0 600 300">
-                                            <path d="M 50 40 Q 120 90 180 120 T 310 180 T 450 220 T 560 260" stroke="#00ffaa" stroke-width="4" fill="none" class="crack-line"></path>
-                                            <path d="M 180 120 Q 230 80 290 70" stroke="#00e5ff" stroke-width="3" fill="none" class="crack-line"></path>
-                                            <path d="M 310 180 Q 360 240 410 270" stroke="#00ffaa" stroke-width="3" fill="none" class="crack-line"></path>
-                                        </svg>
-                                        <div class="vision-info-overlay">
-                                            <span class="tag-status">Model: FPN · EfficientNet-B4</span>
-                                            <span class="tag-status">Coverage: 1.99%</span>
-                                            <span class="tag-status">Resolution: 2048×1536</span>
-                                            <span class="tag-status accuracy">Ground Truth IoU: 0.523</span>
-                                        </div>
-                                    </div>
-                                </div>
-                                <p class="tool-caption"><i data-lucide="info"></i> Animated illustration of the segmentation step; the figures above are from the real <code>Crack002</code> run shown at the top of this section.</p>
-                            </div>
-
-                            <!-- Tool 2: GPR Subsurface Interfacing -->
-                            <div class="tool-panel" id="tool-gpr">
-                                <div class="tool-header-flex">
-                                    <h4>Ground-Penetrating Radar (GPR) Subsurface Layering</h4>
-                                    <span class="badge">Frequency: 1.5 GHz Horn Antenna</span>
-                                </div>
-                                <div class="gpr-canvas-container">
-                                    <canvas id="gprCanvas" width="600" height="250"></canvas>
-                                </div>
-                                <div class="gpr-metrics-grid">
-                                    <div class="gpr-metric">
-                                        <span class="label">Asphalt Surface Thickness:</span>
-                                        <span class="value">115.4 mm (±1.2 mm)</span>
-                                    </div>
-                                    <div class="gpr-metric">
-                                        <span class="label">Granular Base Course:</span>
-                                        <span class="value">240.8 mm</span>
-                                    </div>
-                                    <div class="gpr-metric">
-                                        <span class="label">Dielectric Permittivity (εr):</span>
-                                        <span class="value">6.12</span>
-                                    </div>
-                                </div>
-                            </div>
-
-                            <!-- Tool 3: 3D Rut Depth Analytics -->
-                            <div class="tool-panel" id="tool-rutting">
-                                <div class="tool-header-flex">
-                                    <h4>3D Line Laser Scanning & Rutting Profile</h4>
-                                    <span class="badge">Accuracy: ASTM E1703 Standard</span>
-                                </div>
-                                <div class="rutting-canvas-container">
-                                    <canvas id="ruttingCanvas" width="600" height="220"></canvas>
-                                </div>
-                                <div class="gpr-metrics-grid">
-                                    <div class="gpr-metric">
-                                        <span class="label">Left Wheel Path Rut Depth:</span>
-                                        <span class="value">14.2 mm (Moderate)</span>
-                                    </div>
-                                    <div class="gpr-metric">
-                                        <span class="label">Right Wheel Path Rut Depth:</span>
-                                        <span class="value">8.7 mm (Minor)</span>
-                                    </div>
-                                </div>
-                            </div>
-
-                            <!-- Tool 4: LLM Synthetic Expert Rating -->
-                            <div class="tool-panel" id="tool-llm">
-                                <div class="tool-header-flex">
-                                    <h4>Zero-Shot MLLM Synthetic Expert Assessment</h4>
-                                    <span class="badge badge-accent">Results in Engineering (2026)</span>
-                                </div>
-                                <div class="llm-chat-box">
-                                    <div class="chat-msg user">
-                                        <span class="chat-role">System Query:</span> Evaluate distress imagery #HK-PV-8802 and determine condition rating index.
-                                    </div>
-                                    <div class="chat-msg bot">
-                                        <span class="chat-role">Synthetic Expert (Multimodal LLM):</span>
-                                        <p><strong>Visual Analysis:</strong> High-density fatigue (alligator) cracking detected across 18.4% of wheel path area. GPR dielectric anomaly indicates sub-base moisture intrusion at depth 120mm.</p>
-                                        <p><strong>Recommended Deduction:</strong> 38.5 points.</p>
-                                        <p><strong>Condition Rating:</strong> Poor (PCI = 61.5 / 100).</p>
-                                        <p class="chat-meta">Verified against 5-expert consensus panel (Mean absolute error: 1.8%).</p>
-                                    </div>
-                                </div>
-                            </div>
-
-                            <!-- Tool 5: Fuzzy AHP & PCI Calculator -->
-                            <div class="tool-panel" id="tool-fuzzy">
-                                <div class="tool-header-flex">
-                                    <h4>Interactive Fuzzy AHP & Deductive Index Simulator</h4>
-                                    <span class="badge">Auditable Calculation</span>
-                                </div>
-                                <div class="calculator-controls">
-                                    <div class="slider-group">
-                                        <label for="crackSlider">Surface Cracking Severity (0 - 100): <span id="crackVal">35</span></label>
-                                        <input type="range" id="crackSlider" min="0" max="100" value="35">
-                                    </div>
-                                    <div class="slider-group">
-                                        <label for="rutSlider">Rutting Depth Severity (0 - 100): <span id="rutVal">20</span></label>
-                                        <input type="range" id="rutSlider" min="0" max="100" value="20">
-                                    </div>
-                                    <div class="slider-group">
-                                        <label for="gprSlider">Subsurface Moisture/Moisture Intrusion (0 - 100): <span id="gprVal">45</span></label>
-                                        <input type="range" id="gprSlider" min="0" max="100" value="45">
-                                    </div>
-                                </div>
-                                <div class="calc-results-box">
-                                    <div class="result-item">
-                                        <span class="res-label">Deductive PCI:</span>
-                                        <span class="res-val" id="pciVal">68.5 / 100</span>
-                                    </div>
-                                    <div class="result-item">
-                                        <span class="res-label">Fuzzy AHP Health Index:</span>
-                                        <span class="res-val highlight" id="fuzzyVal">Good (0.712 Membership)</span>
-                                    </div>
-                                    <div class="result-item">
-                                        <span class="res-label">Action Required:</span>
-                                        <span class="res-val action" id="actionVal">Preventive Maintenance (Overlay & Sealing)</span>
-                                    </div>
-                                </div>
-                            </div>
-
-                        </div>
-                    </div>
-
                     <div class="console-footer" style="display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 1rem;">
                         <p><i data-lucide="info"></i> The APPA Console is a full-stack system built with React, Vite, and FastAPI. It processes gigabytes of GPR and 3D laser data.</p>
                         <!-- Live status. The button reflects whether the APPA backend is
