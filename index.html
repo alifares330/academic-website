@@ -123,23 +123,28 @@
                 </div>
                 <div class="about-grid">
                     <div class="about-card glass-card">
-                        <div class="about-icon"><i data-lucide="user-check"></i></div>
-                        <h3>Current Appointment</h3>
-                        <p class="about-affiliation"><strong>Postdoctoral Fellow</strong></p>
-                        <p>Department of Construction Management and Innovation</p>
-                        <p class="text-muted">The Hong Kong Polytechnic University (PolyU)</p>
+                        <div class="about-card-header">
+                            <div class="about-icon"><i data-lucide="user-check"></i></div>
+                            <h3>Current Appointment</h3>
+                        </div>
+                        <p class="about-affiliation"><strong>Postgraduate Researcher Fellow</strong></p>
+                        <p class="text-muted">Department of Construction Management and Innovation, The Hong Kong Polytechnic University (PolyU)</p>
                     </div>
                     <div class="about-card glass-card">
-                        <div class="about-icon"><i data-lucide="award"></i></div>
-                        <h3>Doctoral Distinction</h3>
-                        <p><strong>PhD in Civil Engineering (2026)</strong></p>
-                        <p>Awarded under the prestigious <em>Hong Kong PhD Fellowship Scheme (HKPFS)</em>.</p>
+                        <div class="about-card-header">
+                            <div class="about-icon"><i data-lucide="award"></i></div>
+                            <h3>Doctoral Distinction</h3>
+                        </div>
+                        <p class="about-affiliation"><strong>PhD in Civil Engineering (2026)</strong></p>
+                        <p>Awarded under the <em>Hong Kong PhD Fellowship Scheme (HKPFS)</em>.</p>
                         <p class="text-muted">Dissertation: Integrated Pavement Performance Assessment System Using Multi-Sensing Technologies.</p>
                     </div>
                     <div class="about-card glass-card">
-                        <div class="about-icon"><i data-lucide="building"></i></div>
-                        <h3>Global Academic Mobility</h3>
-                        <p><strong>Postgraduate Visiting Researcher</strong></p>
+                        <div class="about-card-header">
+                            <div class="about-icon"><i data-lucide="building"></i></div>
+                            <h3>Global Academic Mobility</h3>
+                        </div>
+                        <p class="about-affiliation"><strong>Postgraduate Visiting Researcher</strong></p>
                         <p>Department of Civil Engineering & Applied Mechanics, <em>McGill University, Canada</em>.</p>
                         <p class="text-muted">Winter road surface condition modeling, remote sensing analytics, and Multimodal LLM integration for climate resilience.</p>
                     </div>
@@ -253,10 +258,19 @@
                      the screenshot reads as a window onto the app rather than a
                      white rectangle pasted onto the page. -->
                 <figure class="appa-shot">
-                    <picture>
-                        <source srcset="assets/appa-console-full.webp" type="image/webp">
-                        <img src="assets/appa-console-full.jpg"
-                             alt="APPA console running Crack Assessment (DL) on the Crack002 sample: FPN EfficientNet-B4 on CUDA, coverage 1.99%, IoU 0.523 against the supplied ground-truth mask."
+                    <!-- Two renderings of the same run; styles.css shows the one
+                         matching the page theme, so the screenshot never clashes
+                         with the visitor's chosen appearance. -->
+                    <picture class="shot-dark">
+                        <source srcset="assets/appa-console-dark.webp" type="image/webp">
+                        <img src="assets/appa-console-dark.jpg"
+                             alt="APPA console (dark theme) running Crack Assessment (DL) on the Crack002 sample: FPN EfficientNet-B4 on CUDA, coverage 1.99%, IoU 0.523 against the supplied ground-truth mask."
+                             loading="lazy" decoding="async" width="1800" height="1165">
+                    </picture>
+                    <picture class="shot-light">
+                        <source srcset="assets/appa-console-light.webp" type="image/webp">
+                        <img src="assets/appa-console-light.jpg"
+                             alt="APPA console (light theme) running Crack Assessment (DL) on the Crack002 sample: FPN EfficientNet-B4 on CUDA, coverage 1.99%, IoU 0.523 against the supplied ground-truth mask."
                              loading="lazy" decoding="async" width="1800" height="1165">
                     </picture>
                     <figcaption>
@@ -442,6 +456,12 @@
             <div class="section-container">
                 <div class="contact-box glass-card">
                     <div class="contact-content">
+                        <picture>
+                            <source srcset="assets/profile.webp" type="image/webp">
+                            <img src="assets/profile.jpg" alt="Portrait of Dr. Ali Fares"
+                                 class="contact-photo" loading="lazy" decoding="async"
+                                 width="480" height="480">
+                        </picture>
                         <span class="section-tag">Get In Touch</span>
                         <h2>Let's Collaborate on Intelligent Infrastructure</h2>
                         <p>I am open to academic faculty appointments, research collaborations, grant proposals, and industry partnerships in AI, Digital Twins, Sustainable Materials, and infrastructure asset management.</p>
@@ -475,7 +495,7 @@
     <!-- Footer -->
     <footer class="footer">
         <div class="footer-container">
-            <p>© 2026 Dr. Ali Fares. All rights reserved. | Department of Construction Management and Innovation, The Hong Kong Polytechnic University</p>
+            <p>© 2026 Dr. Ali Fares. All rights reserved.</p>
         </div>
     </footer>
 
