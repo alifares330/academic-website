@@ -390,6 +390,7 @@ function initMobileNav() {
    Set APPA_URL to '' to hide the link and show only the contact message.
 --------------------------------------------------------------------------- */
 const APPA_URL = 'https://appa.alifares.me';
+const APPA_FALLBACK_URL = 'https://alimcgill-appa-console.hf.space';
 const APPA_EMAIL = 'ali-i.fares@connect.polyu.hk';
 
 async function initAppaStatus() {
@@ -398,6 +399,17 @@ async function initAppaStatus() {
     const label = document.getElementById('appa-label');
     const note = document.getElementById('appa-note');
     if (!dot || !btn || !label || !note) return;
+
+    const activate = (targetUrl, btnText, noteText, dotColor = '#22c55e', glow = 'rgba(34,197,94,.20)') => {
+        dot.style.background = dotColor;
+        dot.style.boxShadow = `0 0 0 4px ${glow}`;
+        label.textContent = btnText;
+        btn.setAttribute('href', targetUrl);
+        btn.setAttribute('target', '_blank');
+        btn.setAttribute('rel', 'noopener');
+        btn.removeAttribute('aria-disabled');
+        note.textContent = noteText;
+    };
 
     const offline = (why) => {
         dot.style.background = '#f0b429';
@@ -422,31 +434,40 @@ async function initAppaStatus() {
             ' style="color:#5eead4;text-decoration:underline;">Email me</a> for a demo or access.';
     };
 
-    const url = (APPA_URL || '').replace(/\/+$/, '');
-    if (!url) { offline('The console runs on a lab server.'); return; }
-
-    try {
-        // AbortController rather than a fetch timeout: wider browser support, and
-        // an unreachable host would otherwise hang for the full TCP timeout.
+    const probe = async (baseUrl, timeoutMs) => {
         const ctrl = new AbortController();
-        const timer = setTimeout(() => ctrl.abort(), 5000);
-        const res = await fetch(url + '/api/health', {
-            signal: ctrl.signal, mode: 'cors', cache: 'no-store',
-        });
-        clearTimeout(timer);
-        if (!res.ok) throw new Error(res.status);
+        const timer = setTimeout(() => ctrl.abort(), timeoutMs);
+        try {
+            const res = await fetch(baseUrl + '/api/health', {
+                signal: ctrl.signal, mode: 'cors', cache: 'no-store',
+            });
+            return res.ok;
+        } catch {
+            return false;
+        } finally {
+            clearTimeout(timer);
+        }
+    };
 
-        dot.style.background = '#22c55e';
-        dot.style.boxShadow = '0 0 0 4px rgba(34,197,94,.20)';
-        label.textContent = 'Launch APPA Console';
-        btn.setAttribute('href', url);
-        btn.setAttribute('target', '_blank');
-        btn.setAttribute('rel', 'noopener');
-        btn.removeAttribute('aria-disabled');
-        note.textContent = 'Live now';
-    } catch (err) {
-        offline('The console is not reachable at the moment.');
+    const primaryUrl = (APPA_URL || '').replace(/\/+$/, '');
+    const fallbackUrl = (APPA_FALLBACK_URL || '').replace(/\/+$/, '');
+
+    if (primaryUrl && await probe(primaryUrl, 3500)) {
+        activate(primaryUrl, 'Launch APPA Console', 'Live · Lab GPU Server');
+        return;
     }
+
+    if (fallbackUrl) {
+        if (await probe(fallbackUrl, 5000)) {
+            activate(fallbackUrl, 'Launch APPA Console (Cloud)', 'Cloud Lite active (lab GPU offline)');
+        } else {
+            // Free Spaces sleep after 48h of inactivity and wake on first visit.
+            activate(fallbackUrl, 'Launch APPA Console (Cloud)', 'Cloud Lite · wakes on open', '#f0b429', 'rgba(240,180,41,.16)');
+        }
+        return;
+    }
+
+    offline(primaryUrl ? 'The console is not reachable at the moment.' : 'The console runs on a lab server.');
 }
 
 
